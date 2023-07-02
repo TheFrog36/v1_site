@@ -1,0 +1,341 @@
+@import url('https://fonts.googleapis.com/css2?family=Arimo&display=swap');
+
+:root{
+    --primary-color: #555064;
+    --secondary-color: #282633;
+    --highlight-color: rgb(168, 255, 255);
+    --highlight-secondary-color: rgba(0, 81, 255, 0.774);
+    --logo-background-color: white;
+    --logo-angle: -25deg;
+    --header-fraction: 30px;
+    --half-header-fraction: calc(var(--header-fraction) / 2);
+    --socials-bar-width: 300px;
+}
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Arimo', sans-serif;
+}
+
+html, body{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: var(--primary-color);
+}
+
+header{
+    position: relative;
+}
+
+#logo-container{
+    z-index: 100;
+    --logo-height: calc(3 * var(--header-fraction));
+    /*--offset is used to contrast the skew spacing and align the logo container to the left*/
+    --offset: calc(var(--logo-height) / tan(65deg) / 2);
+    --logo-padding: 8px;
+    height: var(--logo-height);
+    position: absolute;
+    aspect-ratio: 2;
+    display: flex;
+    background-color: var(--logo-background-color);
+    transform: skewX(var(--logo-angle));
+    top: 0;
+    left: calc(0px - var(--offset));
+    padding: var(--logo-padding);
+    border-radius: 0 0 8px 0;
+    justify-content: center;
+    padding-left: calc(var(--logo-padding) + var(--offset));
+    transition: box-shadow;
+    --logo-transition-duration: 0.2s;
+    transition: var(--logo-transition-duration);
+}
+
+#logo-container:hover{
+    box-shadow: inset -4px 4px 0px 2px #a1a1a1c9;
+}
+
+#logo-container img{
+    height: 100%;
+    transition: margin-top, margin-right;
+    transition-duration: var(--logo-transition-duration);
+}
+
+#logo-container:hover img{
+    /* position: absolute; */
+    margin-top: 2px;
+    margin-right: 2px;
+}
+
+
+#header-content{
+    display: flex;
+}
+
+#nav-bar{
+    flex-basis: 0;
+    --nav-bar-height: calc(var(--header-fraction) * 2);    background-color: var(--secondary-color);
+    height: var(--nav-bar-height);
+    flex-grow: 1;
+    display: inline-block;
+    margin-left: calc(5 * var(--header-fraction));
+    padding-left: calc(2 * var(--header-fraction));
+    display: flex;
+    color: white;
+    gap: 32px;
+    font-size: 25px;
+}
+
+#nav-bar div{
+    display: grid;
+    place-content: center;
+}
+
+.nav-link{
+    position: relative;
+    --light-animation-duration: 0.2s;
+    /* overflow: hidden; */
+    cursor: pointer;
+}
+
+.nav-link::before{
+    z-index: 5;
+    content: "";
+    width: 0%;
+    height: 0;
+    /* background-color: rgba(255, 0, 0, 0.459); */
+    position: absolute;
+    top: -1px;
+    left: 50%;
+    transition: width, left, height, box-shadow;
+    transition-duration: var(--light-animation-duration);
+}
+
+.nav-link:hover::before{
+    /* background-color: rgba(240, 248, 255, 0.452); */
+    transition: width;
+    height: 1px;
+    width: 60%;
+    left: 20%;
+    transition: width, left, height, box-shadow;
+    transition-duration: var(--light-animation-duration);
+    /* offset-x | offset-y | blur-radius | spread-radius | color */
+    box-shadow: 0px 1px 4px 4px var(--highlight-color);
+}
+
+.nav-link::after{
+    content: "";
+    background-color: transparent;
+    width: 0%;
+    height: 0;
+    /* background-color: rgba(255, 0, 0, 0.459); */
+    position: absolute;
+    top: -1px;
+    left: 50%;
+    transition: width, left, height, box-shadow;
+    transition-duration: var(--light-animation-duration);
+}
+
+.nav-link:hover::after{
+    /* background-color: rgba(240, 248, 255, 0.452); */
+    height: 1px;
+    width: 60%;
+    left: 20%;
+    transition: width, left, height, box-shadow;
+    transition-duration: var(--light-animation-duration);
+    /* offset-x | offset-y | blur-radius | spread-radius | color */
+    box-shadow: 0px 1px 40px 20px var(--highlight-secondary-color);
+}
+
+#nav-bar-transition{
+    flex-basis: 0;
+    --curve-total-width: 100px;
+    height: calc(var(--header-fraction) * 2);
+    width: var(--curve-total-width);
+}
+
+#curve-filler{
+    width: 100%;
+    height: var(--header-fraction);
+    background-color: var(--secondary-color);
+}
+
+#slopes-container{
+    transform: scaleX(-1);
+    transform: scaley(-1);
+    --total-width: calc(2.7 * var(--header-fraction));
+    --total-height: var(--header-fraction);
+    --first-curve-height: 9px;
+    --first-curve-width:  30px;
+    --slope-angle: 25deg;
+
+    width: var(--total-width);
+    height: var(--total-height);
+    display: flex;
+    position: relative;
+    --triangle-base: calc((var(--total-height) - var(--first-curve-height)) / tan(var(--slope-angle)));
+    --new-deg: calc((180deg - var(--slope-angle)) / 2);
+}
+
+#first-curve{
+    height: 100%;
+    width: var(--first-curve-width);
+    overflow: hidden;
+    position: relative;
+}
+
+#first-curve::before{ /*circle*/
+    content: "";
+    background-color: var(--secondary-color);
+    z-index: 10000;
+    position: absolute;
+    top: 0;
+    --leftover-space: 
+        calc(
+            var(--first-curve-width) - 
+            var(--first-curve-height) / tan(var(--slope-angle))
+        );
+    --radius: calc(tan(var(--new-deg)) * var(--leftover-space));
+    width: calc(2 * var(--radius));
+    border-radius: 0 var(--radius) 0 0;
+    left: calc(0px - var(--radius));
+    height: calc(var(--radius) + var(--first-curve-width) + var(--first-curve-height));
+    transform-origin: center var(--radius);
+    transform: rotate(calc(var(--slope-angle) - 90deg));
+}
+
+#first-curve::after{ /*filler*/
+    content: "";
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    background-color: var(--secondary-color);
+    height: calc(100% - var(--first-curve-height));
+}
+
+#triangle{
+    flex-grow: 1;
+    height: 100%;
+    background-color: var(--secondary-color);
+    clip-path: polygon(0% var(--first-curve-height), var(--triangle-base) 100%, 0% 100%);
+    flex-basis: 0;
+}
+
+#second-curve{
+    flex-grow: 1;
+    position: absolute;
+    height: 100%;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    --leftover: calc(var(--total-width) - var(--first-curve-width) - var(--triangle-base));
+    --container-width: 
+        calc(
+            cos(var(--slope-angle)) * var(--leftover)
+            + var(--leftover)
+        );
+    width: var(--leftover);
+    width: var(--container-width);
+    --radius: calc(tan(var(--new-deg)) * var(--leftover));
+    height: var(--radius);
+}
+
+#second-curve::before{
+    content: "";
+    --outline-size: calc(var(--leftover) / cos(var(--new-deg)) - var(--radius) + 1px);
+    width: calc(2 * var(--radius));
+    outline: var(--outline-size) solid var(--secondary-color);
+    position: absolute;
+    aspect-ratio: 1;
+    bottom: 0;
+    right: calc(0px - var(--radius));
+    border-radius: 50%;
+}
+
+#socials-container{
+    height: var(--header-fraction);
+    width: var(--socials-bar-width);
+    background-color: var(--secondary-color);
+    padding: 4px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 4px;
+}
+#socials-container img{
+    cursor: pointer;
+    height: 100%;
+}
+
+#search-bar{
+    width: calc(var(--socials-bar-width) - var(--header-fraction));
+    width: calc(var(--socials-bar-width));
+    height: var(--header-fraction);
+    position: absolute;
+    right: var(--half-header-fraction);
+    top: calc( var(--header-fraction) + var(--half-header-fraction));
+    /* background-color: white; */
+    /* outline: 1px solid white; */
+    display: flex;
+    overflow: hidden;
+    --search-bar-color: #d4d4d4;
+}
+
+#spike{
+    flex-basis: 0;
+    height: 100%;
+    /* background-color: white; */
+    --radius: calc(var(--header-fraction) * 0.24);
+    --angle: 25deg;
+    aspect-ratio: 4/5;
+    --test-width: calc(var(--header-fraction) * 1.09);
+    position: relative;
+}
+
+#spike::before{
+    content: "";
+    background-color: var(--search-bar-color);
+    position: absolute;
+    top: 0;
+    right: calc(0px - var(--radius));
+    height: calc(2 * (var(--radius)));
+    width: var(--test-width);
+    border-radius: var(--radius);
+    transform-origin: calc(100% - var(--radius)) center;
+    rotate: calc(0deg - var(--angle));
+}
+
+#spike::after{
+    content: "";
+    background-color: var(--search-bar-color);
+    position: absolute;
+    bottom: 0;
+    right: calc(0px - var(--radius));
+    height: calc(2 * (var(--radius)));
+    width: var(--test-width);
+    border-radius: var(--radius);
+    transform-origin: calc(100% - var(--radius)) center;
+    rotate: var(--angle);
+}
+
+#search-icon{
+    z-index: 5;
+    flex-basis: 0;
+    height: 100%;
+    aspect-ratio: 1;
+    background-color: var(--search-bar-color);
+}
+
+#search-icon img{
+    height: 100%;
+    margin: auto;
+    fill: whiet;
+}
+
+#search-input{
+    flex-grow: 1;
+    flex-basis: 0;
+    border: none;
+    border-radius: 0 8px 8px 0;
+}
