@@ -51,6 +51,7 @@ header{
     transition: box-shadow;
     --logo-transition-duration: 0.2s;
     transition: var(--logo-transition-duration);
+    cursor: pointer;
 }
 
 #logo-container:hover{
@@ -58,6 +59,7 @@ header{
 }
 
 #logo-container img{
+    transform: skewX(calc(0deg - var(--logo-angle)));
     height: 100%;
     transition: margin-top, margin-right;
     transition-duration: var(--logo-transition-duration);
@@ -264,9 +266,15 @@ header{
     gap: 4px;
 }
 #socials-container img{
+    border-radius: 25%;
     cursor: pointer;
     height: 100%;
 }
+
+#socials-container img:hover{
+   border-bottom: 2px solid var(--highlight-color);
+}
+
 
 #search-bar{
     width: calc(var(--socials-bar-width) - var(--header-fraction));
