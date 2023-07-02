@@ -1,8 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Arimo&display=swap');
 
 :root{
-    --primary-color: #555064;
+    --primary-color: hsl(255, 11%, 35%);
+    --primary-color: hsl(231, 11%, 35%);
     --secondary-color: #282633;
+    --secondary-color: #262833;
     --highlight-color: rgb(168, 255, 255);
     --highlight-secondary-color: rgba(0, 81, 255, 0.774);
     --logo-background-color: white;
@@ -272,7 +274,10 @@ header{
 }
 
 #socials-container img:hover{
-   border-bottom: 2px solid var(--highlight-color);
+   /* border-bottom: 2px solid var(--highlight-color); */
+   /* offset-x | offset-y | blur-radius | spread-radius | color */
+   outline: 1px solid var(--highlight-color);
+   outline-offset: 2px;
 }
 
 
